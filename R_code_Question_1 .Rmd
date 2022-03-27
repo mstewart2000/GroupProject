@@ -21,10 +21,10 @@ library(data.table)
 ```
 
 ```{r}
-MBData<-read.csv("./BacteriaCommunityMatrix.csv")
-SBData<-read.csv("./BacteriaSampleData.csv")
-NBData<-read.csv("./BacteriaTaxInfo.csv")
-GData<-read.csv("./GreenhouseData.csv")
+MBData<-read.csv("./Data/BacteriaCommunityMatrix.csv")
+SBData<-read.csv("./Data/BacteriaSampleData.csv")
+NBData<-read.csv("./Data/BacteriaTaxInfo.csv")
+GData<-read.csv("./Data/GreenhouseData.csv")
 ```
 
 ```{r}
@@ -42,6 +42,8 @@ MatrixL <- MatrixL[grep("L_", MatrixL$X), ]
 
 rownames(MatrixA) <-MatrixA$X
 MatrixA<-select(MatrixA,-X)
+
+MatrixA<-MatrixA[rowSums(MatrixA[])>0,]
 ```
 
 ```{r}
@@ -49,10 +51,17 @@ Dist<- vegdist(MatrixA,method="bray",binary=F)
 DistMat<-as.matrix(Dist)
 PDat<-melt(DistMat)
 
-DistMat[sample(x = 1:length(DistMat), size = 5)] <- NA
-
 set.seed(12138)
-NMDSdat<-metaMDS(Dist,k=2,trymax = 100)
+NMDSdat<-metaMDS(Dist,k=3  ,trymax = 50)
+```
+```{r}
+PDat<-data.frame(NMDS1=NMDSdat$points[,1],
+                 NMDS2=NMDSdat$points[,2],
+                 X=row.names(MatrixA))
 ```
 
+```{r}
+PDat<-merge(PDat,NBData,by="X",all.x=T,all.y=F)
+qplot(x=NMDS1,y=NMDS2,colour=Phylum,alpha=I(0.6),data=PDat)+theme_bw()
+```
 
