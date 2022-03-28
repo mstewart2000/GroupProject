@@ -10,6 +10,15 @@ Github Repository: https://github.com/mstewart2000/GroupProject
 
 Dataset: https://doi.org/10.5061/dryad.tqjq2bvv4 
 
-Article: Zhang, P., Kuramae, A., van Leeuwen, C. H. A., Velthuis, M., van Donk, E., Xu, J., & Bakker, E. S. (2020). Interactive Effects of Rising Temperature and Nutrient Enrichment on Aquatic Plant Growth, Stoichiometry, and Palatability. Frontiers in Plant Science, 11. https://doi.org/10.3389/fpls.2020.00058 
+Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe interactions: the neglected effect of soil conditioning time. New Phytologist, 231(4), 1546–1558. https://doi.org/10.1111/nph.17420
 
-Data Reference：Zhang, Peiyu et al. (2020), Interactive effects of rising temperature and nutrient enrichment on aquatic plant growth, stoichiometry, and palatability, Dryad, Dataset, https://doi.org/10.5061/dryad.tqjq2bvv4
+Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil microbe interactions: the neglected effect of soil conditioning time. Zenodo. https://doi.org/10.5061/dryad.tmpg4f4zd
+
+# Research Questions
+1. Bacterial species x Plant species (are there any bacterial species that are prominent only within legume plant species?)
+
+2. How do the bacterial communities change across time as the various plant species age?
+
+  a) Which bacteria has the greatest effect on plant biomass when the plant is ____ days/weeks old?
+  
+3. Do bacteria species have an effect on plant root mass (below-ground dry mass)?
