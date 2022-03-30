@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Question 1 "
 author: "Tianyi Zuo"
 date: "2022/3/18"
 output: html_document
@@ -17,51 +17,127 @@ library(vegan)
 library(dplyr)
 library(reshape2)
 library(data.table)
-
+library(cowplot)
+library(rich)
 ```
 
+## Input the data
 ```{r}
 MBData<-read.csv("./Data/BacteriaCommunityMatrix.csv")
 SBData<-read.csv("./Data/BacteriaSampleData.csv")
 NBData<-read.csv("./Data/BacteriaTaxInfo.csv")
 GData<-read.csv("./Data/GreenhouseData.csv")
+
 ```
 
+
 ```{r}
-MatrixA <- select(MBData, X,starts_with("Ammophila"))
-MatrixA <- MatrixA[grep("A_", MatrixA$X), ]
-
-MatrixB <- select(MBData, X,starts_with("Baccharis"))
-MatrixB <- MatrixB[grep("B_", MatrixB$X), ]
-
-MatrixI <- select(MBData, X,starts_with("Iceplant"))
-MatrixI <- MatrixI[grep("I_", MatrixI$X), ]
-
-MatrixL <- select(MBData, X,starts_with("Lupine"))
-MatrixL <- MatrixL[grep("L_", MatrixL$X), ]
-
-rownames(MatrixA) <-MatrixA$X
-MatrixA<-select(MatrixA,-X)
-
-MatrixA<-MatrixA[rowSums(MatrixA[])>0,]
+rownames(MBData) <-MBData[,1]
+MBData<- MBData[,-1 ]
+Matrix<-t(MBData)
+Matrix <- Matrix[!(rowSums(Matrix) == 0), !(colSums(Matrix) == 0)]
 ```
 
+
 ```{r}
-Dist<- vegdist(MatrixA,method="bray",binary=F)
+Dist<- vegdist(Matrix,method="bray",binary=F)
 DistMat<-as.matrix(Dist)
 PDat<-melt(DistMat)
 
 set.seed(12138)
-NMDSdat<-metaMDS(Dist,k=3  ,trymax = 50)
+NMDSdat<-metaMDS(Dist,k=2  ,trymax = 200)
+
 ```
 ```{r}
 PDat<-data.frame(NMDS1=NMDSdat$points[,1],
                  NMDS2=NMDSdat$points[,2],
-                 X=row.names(MatrixA))
+                 X=row.names(Matrix))
 ```
 
 ```{r}
-PDat<-merge(PDat,NBData,by="X",all.x=T,all.y=F)
-qplot(x=NMDS1,y=NMDS2,colour=Phylum,alpha=I(0.6),data=PDat)+theme_bw()
+PDat<-merge(PDat,SBData,by="X",all.x=T,all.y=F)
+qplot(x=NMDS1,y=NMDS2,colour=Species,alpha=I(0.6),data=PDat)+theme_bw()
 ```
+
+Figure 1. NMDS plot show the bacterial communities with specific plant species. Points are
+color-coded based on the identity of the plant species: Ammophila (red); Baccharis
+(gree); Iceplant (orange); Lupine (blue); sand (pink). 
+
+
+```{r}
+MatrixA <- Matrix[grep("Ammophila", row.names(Matrix)), ]
+MatrixB <- Matrix[grep("Baccharis", row.names(Matrix)), ]
+MatrixI <- Matrix[grep("Iceplant", row.names(Matrix)), ]
+MatrixL <- Matrix[grep("Lupine", row.names(Matrix)), ]
+```
+
+```{r}
+DistA<- vegdist(MatrixA,method="bray",binary=F)
+DistMatA<-as.matrix(DistA)
+PDatA<-melt(DistMatA)
+
+set.seed(12138)
+NMDSdatA<-metaMDS(DistA,k=2  ,trymax = 200)
+
+PDatA<-data.frame(NMDS1=NMDSdatA$points[,1],
+                 NMDS2=NMDSdatA$points[,2],
+                 X=row.names(MatrixA))
+PDatA<-merge(PDatA,SBData,by="X",all.x=T,all.y=F)
+NMDSA<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatA) + theme_bw() + ggtitle("Ammophila")
+```
+
+```{r}
+DistB<- vegdist(MatrixB,method="bray",binary=F)
+DistMatB<-as.matrix(DistB)
+PDatB<-melt(DistMatB)
+
+set.seed(12138)
+NMDSdatB<-metaMDS(DistB,k=2  ,trymax = 200)
+
+PDatB<-data.frame(NMDS1=NMDSdatB$points[,1],
+                 NMDS2=NMDSdatB$points[,2],
+                 X=row.names(MatrixB))
+PDatB<-merge(PDatB,SBData,by="X",all.x=T,all.y=F)
+NMDSB<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatB)+theme_bw()+ ggtitle("Baccharis")
+```
+```{r}
+DistI<- vegdist(MatrixI,method="bray",binary=F)
+DistMatI<-as.matrix(DistI)
+PDatI<-melt(DistMatI)
+
+set.seed(12138)
+NMDSdatI<-metaMDS(DistI,k=2  ,trymax = 200)
+
+PDatI<-data.frame(NMDS1=NMDSdatI$points[,1],
+                 NMDS2=NMDSdatI$points[,2],
+                 X=row.names(MatrixI))
+PDatI<-merge(PDatI,SBData,by="X",all.x=T,all.y=F)
+NMDSI<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatI)+theme_bw() + ggtitle("Iceplant")
+```
+```{r}
+DistL<- vegdist(MatrixL,method="bray",binary=F)
+DistMatL<-as.matrix(DistL)
+PDatL<-melt(DistMatL)
+
+set.seed(12138)
+NMDSdatL<-metaMDS(DistL,k=2  ,trymax = 200)
+
+PDatL<-data.frame(NMDS1=NMDSdatL$points[,1],
+                 NMDS2=NMDSdatL$points[,2],
+                 X=row.names(MatrixL))
+PDatL<-merge(PDatL,SBData,by="X",all.x=T,all.y=F)
+NMDSL<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatL)+
+  theme_bw()+
+  ggtitle("Lupine")
+```
+
+```{r}
+plot_grid(NMDSA, NMDSB, NMDSI,NMDSL, ncol = 2)
+```
+Figure 2. The NMDS ordination plot shows the microbial community composition as factor of plant species and the age of plant individuals. Bacterial communities associated with the specific species are color-coded by individual plant age; the light to dark colour of point represent the age gradient from old to young, with species-specific minimum and maximum age.
+
+
+
+
+
 
