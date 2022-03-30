@@ -1,0 +1,82 @@
+---
+title: "BIOL 432 Personal"
+author: "TramooD17"
+date: "25/03/2022"
+output: html_document
+---
+
+Question 3 : Do bacteria species have an effect on plant root mass (below-ground dry mass)?  
+
+
+In order to account for different root masses among species of plants, the relationship between soil host species and root mass will be looked at per plant species. In order to account for difference in root masses among age, an older age group and younger sampled age group will be chosen among all plant species (10 years and 0.5 years, respectively) for visual analysis.
+In order to account for differences in root mass by age and for statistical confirmation, the ANCOVA test will be used.
+
+Data preparation:
+```{r}
+Garden <- read.csv("./GreenhouseData.csv")
+```
+```{r}
+#Subset the data to get only the columns of interest
+root <- Garden[c("PlantSpecies", "SoilHostSpecies", "BG_Dry_mg", "Age")]
+ 
+#Age needs to be changed into a categorical variable
+class(root$Age)
+root$Age <- as.factor(root$Age)
+class(root$Age)
+```
+
+Visualizing the data:
+```{r}
+library(ggplot2)
+
+#Subset data again to get only the ages of interest
+ oldplants <- root[grep('10', root$Age),]
+ youngplants <- root[grep('0.5', root$Age),]
+```
+```{r}
+oldplot <- ggplot(oldplants, aes(x=PlantSpecies, y=BG_Dry_mg, fill=SoilHostSpecies)) + 
+    geom_boxplot() +
+    facet_wrap(~PlantSpecies, scale="free") +
+  labs(x= "Plant species (15 years)", y = "Below-ground dry mass (mg)", fill= "Soil host species") +
+  theme_classic()
+oldplot
+```
+Figure 1. Box plot of the relationship between soil host species and below-ground dry mass in milligrams of each plant species at age 10 years (A. arenaria, B. pilularis, C. edulis, L. arboreus, respectively). Bp at age 15 was not treated with Lupine for an unknown reason (possibly due to lack on samples).
+
+```{r}
+youngplot <- ggplot(youngplants, aes(x=PlantSpecies, y=BG_Dry_mg, fill=SoilHostSpecies)) + 
+    geom_boxplot() +
+    facet_wrap(~PlantSpecies, scale="free") +
+  labs(x= "Plant species (0.5 years)", y = "Below-ground dry mass (mg)", fill= "Soil host species") +
+  theme_classic()
+youngplot
+```
+Figure 2. Box plot of the relationship between soil host species and below-ground dry mass in milligrams of each plant species at age 0.5 years (A. arenaria, B. pilularis, C. edulis, L. arboreus, respectively).
+
+
+Statistical analysis using ANCOVA:
+```{r}
+#Checking data to meet assumptions
+
+#Assumption 1: the covariate and treatment should be independent of each other.
+root$Age <- as.numeric(root$Age)
+rootmodel <- aov(Age ~ SoilHostSpecies, data = root)
+summary(rootmodel)
+```
+
+```{r}
+#Assumption 2: There is homogeneity of variance.
+library(car)
+leveneTest(BG_Dry_mg~SoilHostSpecies, data = root)
+```
+
+The covariance model ANCOVA will be used to statistically analyse for significance in soil host species.
+```{r}
+#Take age into consideration
+ancova_model <- aov(BG_Dry_mg ~ SoilHostSpecies + PlantSpecies + Age, data = root)
+Anova(ancova_model, type="III")
+```
+
+In Figures 1 and 2, box plots mostly overlap with each other, showing weak correlation between soil host species and below-ground dry mass. Across species, there doesn't appear to be a prominent soil host species contributing to below-ground dry mass. Across ages 0.5 to 10 years for each species, there doesn't appear to be a prominent soil host species contributing to below-ground dry mass.
+According to the ANCOVA analysis, the p-value for soil host species is more than 0.05. This indicates that soil host species are not significantly correlated to below-ground dry mass, even when taking age into account.
+Therefore, it is assumed that the bacteria community formed by the soil host species is not significant to plant root growth.
