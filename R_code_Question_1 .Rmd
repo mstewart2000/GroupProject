@@ -27,18 +27,21 @@ MBData<-read.csv("./Data/BacteriaCommunityMatrix.csv")
 SBData<-read.csv("./Data/BacteriaSampleData.csv")
 NBData<-read.csv("./Data/BacteriaTaxInfo.csv")
 GData<-read.csv("./Data/GreenhouseData.csv")
-
 ```
 
 
+## Question 1
+Bacterial community composition differed among plant species? Does the composition of community will change among the age of the plant?
+
+### Transforme the Data
 ```{r}
-rownames(MBData) <-MBData[,1]
+rownames(MBData) <-MBData[,1] 
 MBData<- MBData[,-1 ]
 Matrix<-t(MBData)
 Matrix <- Matrix[!(rowSums(Matrix) == 0), !(colSums(Matrix) == 0)]
 ```
 
-
+### Distance Matrix
 ```{r}
 Dist<- vegdist(Matrix,method="bray",binary=F)
 DistMat<-as.matrix(Dist)
@@ -64,6 +67,7 @@ color-coded based on the identity of the plant species: Ammophila (red); Bacchar
 (gree); Iceplant (orange); Lupine (blue); sand (pink). 
 
 
+### Age Vs Bacterial community
 ```{r}
 MatrixA <- Matrix[grep("Ammophila", row.names(Matrix)), ]
 MatrixB <- Matrix[grep("Baccharis", row.names(Matrix)), ]
