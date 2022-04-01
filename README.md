@@ -15,7 +15,10 @@ Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe i
 Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil microbe interactions: the neglected effect of soil conditioning time. Zenodo. https://doi.org/10.5061/dryad.tmpg4f4zd
 
 # Research Questions
-1. Bacterial species x Plant species (Does the plant species will affect the bacterial community composition?)
+1. How the Plant effect Bacterial?
+  a)Does the plant species will affect the bacterial community composition?
+  
+  b)Does the plant growth age will affect the bacterial community composition?
 
 2. How do the bacterial communities change across time as the various plant species age?
 
