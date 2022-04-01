@@ -7,13 +7,12 @@ output: html_document
 
 Question 3 : Do bacteria species have an effect on plant root mass (below-ground dry mass)?  
 
-
 In order to account for different root masses among species of plants, the relationship between soil host species and root mass will be looked at per plant species. In order to account for difference in root masses among age, an older age group and younger sampled age group will be chosen among all plant species (10 years and 0.5 years, respectively) for visual analysis.
 In order to account for differences in root mass by age and for statistical confirmation, the ANCOVA test will be used.
 
 Data preparation:
 ```{r}
-Garden <- read.csv("./GreenhouseData.csv")
+Garden <- read.csv("./Data/GreenhouseData.csv")
 ```
 ```{r}
 #Subset the data to get only the columns of interest
