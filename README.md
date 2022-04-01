@@ -30,6 +30,8 @@ Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil mic
 # Hypotheses/Predictions
 1.
 2.
-3.![image0-23](https://user-images.githubusercontent.com/97919590/161337254-8b6c129f-b9eb-49d1-ab7b-1e732e69cf12.jpeg)
+3. Plant species will have increased below-ground dry mass when the soil host species and the plant species (transplanted seedling) are the same.
+![image0-23](https://user-images.githubusercontent.com/97919590/161337254-8b6c129f-b9eb-49d1-ab7b-1e732e69cf12.jpeg)
+Figure 4. Boxplot showing that when an Aa seedling of a particular age (Ammophila arenaria) is planted in soil that was hosted by Ammophila, the below-ground dry mass will be sigificantly higher than if an Aa seedling of that particular age is planted in soil that was from any other soil host species. The x-axis is the soil host species, while the y-axis shows the below-ground dry mass in milligrams.
 ![image0-24](https://user-images.githubusercontent.com/97919590/161337305-40e477eb-93e7-42b4-9d02-cfb70c9b0a21.jpeg)
-
+Figure 5. Boxplot showing that when a Ce seedling of a particular age (C. edulis/IcePlant) is planted in soil that was hosted by IcePlant, the below-ground dry mass will be sigificantly higher than if a Ce seedling of that particular age is planted in soil that was from any other soil host species. The x-axis is the soil host species, while the y-axis shows the below-ground dry mass in milligrams.
