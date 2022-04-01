@@ -26,3 +26,10 @@ Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil mic
   a) Which bacteria has the greatest effect on plant biomass when the plant is ____ days/weeks old?
   
 3. Do bacteria species have an effect on plant root mass (below-ground dry mass)?
+
+# Hypotheses/Predictions
+1.
+2.
+3.![image0-23](https://user-images.githubusercontent.com/97919590/161337254-8b6c129f-b9eb-49d1-ab7b-1e732e69cf12.jpeg)
+![image0-24](https://user-images.githubusercontent.com/97919590/161337305-40e477eb-93e7-42b4-9d02-cfb70c9b0a21.jpeg)
+
