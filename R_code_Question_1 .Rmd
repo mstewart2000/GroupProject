@@ -30,8 +30,11 @@ GData<-read.csv("./Data/GreenhouseData.csv")
 
 
 ## Question 1
-Does the plant species will affect the bacterial community composition?
+Does the plant will affect the bacterial community composition in the soil source?
 
+
+## Question 1-1
+Does the plant species will affect the bacterial community composition?
 
 In order to test the similarity between the bacterial community in different plant species area, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples. For this question, we mainly used the Bacteria Community Matrix to compared the composition of bacterial community among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is community matrix of bacterial OTU characterized from each soil sample.
 
