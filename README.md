@@ -10,9 +10,6 @@ Github Repository: https://github.com/mstewart2000/GroupProject
 
 Dataset: https://zenodo.org/record/4716796#.Ykc8iG7MI1L
 
-Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe interactions: the neglected effect of soil conditioning time. New Phytologist, 231(4), 1546–1558. https://doi.org/10.1111/nph.17420
-
-Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil microbe interactions: the neglected effect of soil conditioning time. Zenodo. https://doi.org/10.5061/dryad.tmpg4f4zd
 
 # Research Questions and Prediction
 ### Question 1. How the Plant effect Bacterial community composition?
@@ -41,3 +38,14 @@ Figure 4. Boxplot showing that when an Aa seedling of a particular age (Ammophil
 
 ![image0-24](https://user-images.githubusercontent.com/97919590/161337305-40e477eb-93e7-42b4-9d02-cfb70c9b0a21.jpeg)
 Figure 5. Boxplot showing that when a Ce seedling of a particular age (C. edulis/IcePlant) is planted in soil that was hosted by IcePlant, the below-ground dry mass will be sigificantly higher than if a Ce seedling of that particular age is planted in soil that was from any other soil host species. The x-axis is the soil host species, while the y-axis shows the below-ground dry mass in milligrams.
+
+
+### Workflow
+
+
+
+### Literature Cited
+
+Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe interactions: the neglected effect of soil conditioning time. New Phytologist, 231(4), 1546–1558. https://doi.org/10.1111/nph.17420
+
+Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil microbe interactions: the neglected effect of soil conditioning time. Zenodo. https://doi.org/10.5061/dryad.tmpg4f4zd
