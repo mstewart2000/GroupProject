@@ -21,7 +21,7 @@ Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil mic
 
   b)Does the plant growth age will affect the bacterial community composition?
 
-## Prediction 1.
+### Prediction 1.
   Bacterial community composition differed between plant species, and in different plant species, bacterial composition changed with plant growth.
   ![NMDS plots shows the variantion of bacterial community](./Prediction_graph/Question_1.jpeg)
   Figure 1. NMDS plot show the overall variation in bacterial community composition among the different specific plant species. Sand group as a control group without any plant. That group will have large different with other four plant species. Other four plant species will be different with each other, and points will cluster together within same species. 
