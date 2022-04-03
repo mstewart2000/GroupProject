@@ -1,0 +1,86 @@
+---
+title: "R_code_Question_2A"
+author: "mstewart2000"
+date: "28/03/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Initial Setup
+
+Package loading
+```{r echo = FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggpubr)
+```
+
+Loading data set
+```{r}
+data = read.csv("./Data/GreenhouseData.csv")
+```
+
+Removing all but wanted data points
+```{r}
+data = data %>%
+  select(BG_Dry_mg, PlantSpecies, SoilHostSpecies, Age)
+```
+
+# Setting up Data
+The goal of this section is to determine which bacteria has the greatest effect on plant biomass when the plant is between 11 and 13 days old. This was chosen as this is the average age of the plants in the data set
+
+First I will create a new data set with only the plants that are this old.
+```{r}
+data2 = data %>%
+  subset(Age == 11:13)
+head(data2)
+```
+
+Now with this data I can begin my analysis
+
+# Analysis
+
+I will use a boxplot to see the impact that the bacteria have on the plants that are this age
+```{r}
+Plot1 = ggplot(data2, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
+  geom_boxplot() +
+  theme_classic() +
+    scale_fill_discrete(name = "Soil Bacteria") +
+    scale_x_discrete(name = "", labels = c("","","","")) +
+    scale_y_continuous(name = "Root Dry Mass (mg)")
+Plot1
+```
+
+Based on this, we can see that Ammophila has an impact on the dry weight of the roots between 11 and 13 days. To further examine this relationship, I will create a new set of data that groups together all the other species of soil bacteria, then create a boxplot using that set.
+```{r}
+data3 = data2
+  for (i in 1:length(data2$PlantSpecies)) {
+    if (data2$SoilHostSpecies[i] != "Ammophila"){
+      data3$SoilHostSpecies[i] = "Other"
+    }
+  }
+```
+
+Now I will recreate the plot with the new data set
+```{r}
+Plot2 = ggplot(data3, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
+  geom_boxplot() +
+  theme_classic() +
+    scale_fill_discrete(name = "Soil Bacteria") +
+    scale_x_discrete(name = "", labels = c("","")) +
+    scale_y_continuous(name = "Root Dry Mass (mg)")
+Plot2
+```
+
+Based on this graph we can see visually that there is a clear difference between the Ammophila and all the other species of soil bacteria at 11-13 days.
+
+Now I will conduct an unpaired two-sample t-test to determine if this difference between the two groups is significant or not
+```{r}
+t.test(subset(data3$BG_Dry_mg, data3$SoilHostSpecies == "Other"),
+       subset(data3$BG_Dry_mg, data3$SoilHostSpecies == "Ammophila"),
+              alternative = "two.sided", var.equal = FALSE)
+```
+
