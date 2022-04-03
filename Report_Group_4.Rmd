@@ -1,0 +1,405 @@
+---
+title: "R-Code_group_4"
+author: "Tianyi Zuo"
+date: "2022/4/3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE}
+library(ggplot2)
+library(ape)
+library(vegan)
+library(dplyr)
+library(reshape2)
+library(cowplot)
+library(tidyverse)
+library(ggpubr)
+library(car)
+```
+
+
+## Input the data
+```{r}
+MBData<-read.csv("./Data/BacteriaCommunityMatrix.csv")
+SBData<-read.csv("./Data/BacteriaSampleData.csv")
+GData<-read.csv("./Data/GreenhouseData.csv")
+```
+
+
+## Question 1
+Does the plant will affect the bacterial community composition in the soil source?
+
+
+## Question 1-1
+Does the plant species will affect the bacterial community composition?
+
+In order to test the similarity between the bacterial community in different plant species area, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples. For this question, we mainly used the Bacteria Community Matrix to compared the composition of bacterial community among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is community matrix of bacterial OTU characterized from each soil sample.
+
+
+
+### Transforme the Data
+According the data we have, I transform column and row first, and remove error which sum of row and column is zero. 
+```{r}
+rownames(MBData) <-MBData[,1] 
+MBData<- MBData[,-1 ]
+Matrix_Q1<-t(MBData)
+Matrix_Q1 <- Matrix_Q1[!(rowSums(Matrix_Q1) == 0), !(colSums(Matrix_Q1) == 0)]
+```
+
+### Distance Matrix
+```{r warning=FALSE}
+#Create the Bray_Curtis Dissimilarity metric
+Dist_Q1<- vegdist(Matrix_Q1,method="bray",binary=F)
+DistMat_Q1<-as.matrix(Dist_Q1)
+PDat_Q1<-melt(DistMat_Q1)
+```
+
+### Non-Metric Multidimensional Scaling
+Using Non-matric Dimensional Scaling(NMDS) to visualize the cluster of samplings from different plant species. We can find out whether in different plant species area has a stronger effect on bacterial communities.
+```{r warning=FALSE}
+set.seed(12138)
+NMDSdat_Q1<-metaMDS(Dist_Q1,k=2  ,trymax = 200)
+PDat_Q1<-data.frame(NMDS1=NMDSdat_Q1$points[,1],
+                 NMDS2=NMDSdat_Q1$points[,2],
+                 X=row.names(Matrix_Q1))
+PDat_Q1<-merge(PDat_Q1,SBData,by="X",all.x=T,all.y=F)
+qplot(x=NMDS1,y=NMDS2,colour=Species,alpha=I(0.6),data=PDat_Q1)+theme_bw()
+```
+
+Figure 1. NMDS plot show the overall variation in bacterial community composition among the different specific plant species. Points are color-coded based on the identity of the plant species: Ammophila (red); Baccharis(gree); Iceplant (orange); Lupine (blue); sand (pink).
+
+According to the figure 1, the bacterial community composition differed between plant species, but the results were not significant. Based on the graph, the control group(sand) has less similarity with other four plant species.  Sampling from same plant specie's area are more likely cluster together, but there still have some overlap between different plant species. From figure 1, the bacterial community composition differed between plant species.
+
+
+
+
+
+### Question 1-2
+Does the plant growth age will affect the bacterial community composition?
+
+We next wanted to investigate in more detail whether there is a temporal pattern in bacterial communities based on our available data and whether the composition of their communities changes depending on the time of plant growth.
+
+### Transform Matrix
+In order to test whether plant age will effect the bacterial community, we separate the bacterial community matrix into four different matrix depended on plant species. 
+```{r}
+MatrixA_Q1 <- Matrix_Q1[grep("Ammophila", row.names(Matrix_Q1)), ]
+MatrixB_Q1 <- Matrix_Q1[grep("Baccharis", row.names(Matrix_Q1)), ]
+MatrixI_Q1 <- Matrix_Q1[grep("Iceplant", row.names(Matrix_Q1)), ]
+MatrixL_Q1 <- Matrix_Q1[grep("Lupine", row.names(Matrix_Q1)), ]
+```
+
+### Distance Matrix
+```{r warning=FALSE}
+#Create the Bray_Curtis Dissimilarity metric for each plant species
+DistA_Q1<- vegdist(MatrixA_Q1,method="bray",binary=F)
+DistMatA_Q1<-as.matrix(DistA_Q1)
+PDatA_Q1<-melt(DistMatA_Q1)
+
+DistB_Q1<- vegdist(MatrixB_Q1,method="bray",binary=F)
+DistMatB_Q1<-as.matrix(DistB_Q1)
+PDatB_Q1<-melt(DistMatB_Q1)
+
+DistI_Q1<- vegdist(MatrixI_Q1,method="bray",binary=F)
+DistMatI_Q1<-as.matrix(DistI_Q1)
+PDatI_Q1<-melt(DistMatI_Q1)
+
+DistL_Q1<- vegdist(MatrixL_Q1,method="bray",binary=F)
+DistMatL_Q1<-as.matrix(DistL_Q1)
+PDatL_Q1<-melt(DistMatL_Q1)
+```
+
+### Non-Metric Multidimensional Scaling
+Using Non-matric Dimensional Scaling(NMDS) to visualize the cluster of samplings with plant age in four different plant species. We can find out whether the plant growth age has a stronger effect on bacterial communities.
+
+```{r warning=FALSE}
+#Non-Metric Multidimensional Scaling for Ammophila species.
+set.seed(12138)
+NMDSdatA_Q1<-metaMDS(DistA_Q1,k=2  ,trymax = 200)
+
+PDatA_Q1<-data.frame(NMDS1=NMDSdatA_Q1$points[,1],
+                 NMDS2=NMDSdatA_Q1$points[,2],
+                 X=row.names(MatrixA_Q1))
+PDatA_Q1<-merge(PDatA_Q1,SBData,by="X",all.x=T,all.y=F)
+NMDSA_Q1<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatA_Q1) + theme_bw() + ggtitle("Ammophila")
+```
+
+```{r warning=FALSE}
+#Non-Metric Multidimensional Scaling for Baccharis species.
+set.seed(12138)
+NMDSdatB_Q1<-metaMDS(DistB_Q1,k=2  ,trymax = 200)
+
+PDatB_Q1<-data.frame(NMDS1=NMDSdatB_Q1$points[,1],
+                 NMDS2=NMDSdatB_Q1$points[,2],
+                 X=row.names(MatrixB_Q1))
+PDatB_Q1<-merge(PDatB_Q1,SBData,by="X",all.x=T,all.y=F)
+NMDSB_Q1<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatB_Q1)+theme_bw()+ ggtitle("Baccharis")
+```
+
+```{r warning=FALSE}
+#Non-Metric Multidimensional Scaling for Iceplant species.
+set.seed(12138)
+NMDSdatI_Q1<-metaMDS(DistI_Q1,k=2  ,trymax = 200)
+
+PDatI_Q1<-data.frame(NMDS1=NMDSdatI_Q1$points[,1],
+                 NMDS2=NMDSdatI_Q1$points[,2],
+                 X=row.names(MatrixI_Q1))
+PDatI_Q1<-merge(PDatI_Q1,SBData,by="X",all.x=T,all.y=F)
+NMDSI_Q1<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatI_Q1)+theme_bw() + ggtitle("Iceplant")
+```
+
+
+```{r}
+#Non-Metric Multidimensional Scaling for Lupine species.
+set.seed(12138)
+NMDSdatL_Q1<-metaMDS(DistL_Q1,k=2  ,trymax = 200)
+
+PDatL_Q1<-data.frame(NMDS1=NMDSdatL_Q1$points[,1],
+                 NMDS2=NMDSdatL_Q1$points[,2],
+                 X=row.names(MatrixL_Q1))
+PDatL_Q1<-merge(PDatL_Q1,SBData,by="X",all.x=T,all.y=F)
+NMDSL_Q1<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatL_Q1)+
+  theme_bw()+
+  ggtitle("Lupine")
+```
+
+
+```{r}
+#Plotting  the NMDS result
+plot_grid(NMDSA_Q1, NMDSB_Q1, NMDSI_Q1,NMDSL_Q1, ncol = 2)
+```
+
+Figure 2. The NMDS ordination plot shows the microbial community composition as factor of plant species and the age of plant individuals. Bacterial communities associated with the specific species are color-coded by individual plant age; the light to dark colour of point represent the age gradient from old to young, with species-specific minimum and maximum age.
+
+According to figure 2, in each plant, the bacterial composition changes with the age of the plant. Among Ammophila species, the largest changes in bacterial community composition were observed. Bacterial abundance also changes with increasing plant age in the other three speceies. However, it can be found that bacterial abundance does not increase further after a few years after plant establishment.
+
+
+## Question 2
+How the Bacterial community  effect the plant species?
+
+## Question 2-1
+How do the bacterial communities change across time as the various plant species age?
+
+### Transform Data for Q2
+```{r}
+# subset the dataset to make smaller dataset with PlantSpecies, SoilHostSpecies, Age, and Total_Dry_mg
+SubsetData_Q2_1 <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age", "Total_Dry_mg"))
+```
+
+
+```{r}
+# subset further for each plant species
+AaMDSubset_Q2_1 <- SubsetData_Q2_1 %>% filter(PlantSpecies == "Aa")
+BpMDSubset_Q2_1 <- SubsetData_Q2_1 %>% filter(PlantSpecies == "Bp")
+CeMDSubset_Q2_1 <- SubsetData_Q2_1 %>% filter(PlantSpecies == "Ce")
+LaMDSubset_Q2_1 <- SubsetData_Q2_1  %>% filter(PlantSpecies == "La")
+```
+
+
+```{r}
+# create stacked bar graphs to show the variation in soil host species composition as age increases per plant species
+ggplot(data = AaMDSubset_Q2_1, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) + 
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Aa Soil Host Species Composition") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+```
+
+Figure 3. 
+
+```{r}
+ggplot(data = BpMDSubset_Q2_1, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Bp Soil Host Species Composition") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+```
+
+Figure 4. 
+
+```{r}
+ggplot(data = CeMDSubset_Q2_1, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Ce Soil Host Species Composition") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+```
+Figure 5. 
+
+```{r}
+ggplot(data = LaMDSubset_Q2_1, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("La Soil Host Species Composition") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+```
+
+Figure 6. 
+
+
+## Question 2-2
+Which bacteria has the greatest effect on plant biomass when the plant is ____ years old?
+
+
+The goal of this section is to determine which bacteria has the greatest effect on plant biomass when the plant is between 11 and 13 days old. This was chosen as this is the average age of the plants in the data set
+
+### Transform data for Q2-2
+```{r}
+#Make a subset data with interested coloumn
+SubGdata_Q2_2 = GData %>%
+  select(BG_Dry_mg, PlantSpecies, SoilHostSpecies, Age)
+```
+
+```{r warning=FALSE}
+#create a new data set with only the plants that are this old.
+Gdata_Q2_2_1 = SubGdata_Q2_2 %>%
+  subset(Age == 11:13)
+```
+
+### Analysis
+Here using a boxplot to see the impact that the bacteria community have on the plants between 11-13 years.
+```{r}
+Plot1 = ggplot(Gdata_Q2_2_1, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
+  geom_boxplot() +
+  theme_classic() +
+    scale_fill_discrete(name = "Soil Bacteria") +
+    scale_x_discrete(name = "", labels = c("","","","")) +
+    scale_y_continuous(name = "Root Dry Mass (mg)")
+Plot1
+```
+
+Figure 7 
+
+Based on this, we can see that Ammophila has an impact on the dry weight of the roots between 11 and 13 days. To further examine this relationship, I will create a new set of data that groups together all the other species of soil bacteria, then create a boxplot using that set.
+
+
+```{r}
+Gdata_Q2_2_2 = Gdata_Q2_2_1
+  for (i in 1:length(Gdata_Q2_2_1$PlantSpecies)) {
+    if (Gdata_Q2_2_1$SoilHostSpecies[i] != "Ammophila"){
+      Gdata_Q2_2_2$SoilHostSpecies[i] = "Other"
+    }
+  }
+```
+
+
+Now I will recreate the plot with the new data set
+```{r}
+Plot2 = ggplot(Gdata_Q2_2_2, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
+  geom_boxplot() +
+  theme_classic() +
+    scale_fill_discrete(name = "Soil Bacteria") +
+    scale_x_discrete(name = "", labels = c("","")) +
+    scale_y_continuous(name = "Root Dry Mass (mg)")
+Plot2
+```
+Figure 8. 
+
+Based on this graph we can see visually that there is a clear difference between the Ammophila and all the other species of soil bacteria at 11-13 days.
+
+Now I will conduct an unpaired two-sample t-test to determine if this difference between the two groups is significant or not
+
+
+```{r}
+t.test(subset(Gdata_Q2_2_2$BG_Dry_mg, Gdata_Q2_2_2$SoilHostSpecies == "Other"),
+       subset(Gdata_Q2_2_2$BG_Dry_mg, Gdata_Q2_2_2$SoilHostSpecies == "Ammophila"),
+              alternative = "two.sided", var.equal = FALSE)
+```
+
+
+## Question 3 
+Do bacteria species have an effect on plant root mass (below-ground dry mass)?  
+
+
+In order to account for different root masses among species of plants, the relationship between soil host species and root mass will be looked at per plant species. In order to account for difference in root masses among age, an older age group and younger sampled age group will be chosen among all plant species (10 years and 0.5 years, respectively) for visual analysis.
+In order to account for differences in root mass by age and for statistical confirmation, the ANCOVA test will be used.
+
+
+### Transform Data for Q3
+
+```{r}
+#Subset the data to get only the columns of interest
+SubGData_Q3 <- GData[c("PlantSpecies", "SoilHostSpecies", "BG_Dry_mg", "Age")]
+ 
+#Age needs to be changed into a categorical variable
+class(SubGData_Q3 $Age)
+SubGData_Q3 $Age <- as.factor(SubGData_Q3 $Age)
+class(SubGData_Q3 $Age)
+```
+
+```{r}
+#Subset data again to get only the ages of interest
+ oldplants_Q3 <- SubGData_Q3[grep('10', SubGData_Q3$Age),]
+ youngplants_Q3 <- SubGData_Q3[grep('0.5', SubGData_Q3$Age),]
+```
+
+
+### Analysis and Visualizing Data
+```{r}
+oldplot <- ggplot(oldplants_Q3, aes(x=PlantSpecies, y=BG_Dry_mg, fill=SoilHostSpecies)) + 
+    geom_boxplot() +
+    facet_wrap(~PlantSpecies, scale="free") +
+  labs(x= "Plant species (15 years)", y = "Below-ground dry mass (mg)", fill= "Soil host species") +
+  theme_classic()
+oldplot
+```
+
+Figure 9. Box plot of the relationship between soil host species and below-ground dry mass in milligrams of each plant species at age 10 years (A. arenaria, B. pilularis, C. edulis, L. arboreus, respectively). Bp at age 15 was not treated with Lupine for an unknown reason (possibly due to lack on samples).
+
+
+```{r}
+youngplot <- ggplot(youngplants_Q3, aes(x=PlantSpecies, y=BG_Dry_mg, fill=SoilHostSpecies)) +
+    geom_boxplot() +
+    facet_wrap(~PlantSpecies, scale="free") +
+  labs(x= "Plant species (0.5 years)", y = "Below-ground dry mass (mg)", fill= "Soil host species") +
+  theme_classic()
+youngplot
+```
+
+Figure 10 . Box plot of the relationship between soil host species and below-ground dry mass in milligrams of each plant species at age 0.5 years (A. arenaria, B. pilularis, C. edulis, L. arboreus, respectively).
+
+
+### Statistical analysis using ANCOVA
+```{r}
+#Checking data to meet assumptions
+
+#Assumption 1: the covariate and treatment should be independent of each other.
+SubGData_Q3 $Age <- as.numeric(SubGData_Q3 $Age)
+rootmodel_Q3 <- aov(Age ~ SoilHostSpecies, data = SubGData_Q3 )
+summary(rootmodel_Q3)
+```
+
+
+```{r warning=FALSE}
+#Assumption 2: There is homogeneity of variance.
+leveneTest(BG_Dry_mg~SoilHostSpecies, data = SubGData_Q3)
+```
+
+The covariance model ANCOVA will be used to statistically analyse for significance in soil host species.
+
+```{r}
+#Take age into consideration
+ancova_model_Q3 <- aov(BG_Dry_mg ~ SoilHostSpecies + PlantSpecies + Age, data = SubGData_Q3)
+Anova(ancova_model_Q3, type="III")
+```
+
+In Figures 1 and 2, box plots mostly overlap with each other, showing weak correlation between soil host species and below-ground dry mass. Across species, there doesn't appear to be a prominent soil host species contributing to below-ground dry mass. Across ages 0.5 to 10 years for each species, there doesn't appear to be a prominent soil host species contributing to below-ground dry mass.
+According to the ANCOVA analysis, the p-value for soil host species is more than 0.05. This indicates that soil host species are not significantly correlated to below-ground dry mass, even when taking age into account.
+Therefore, it is assumed that the bacteria community formed by the soil host species is not significant to plant root growth.
+
+
