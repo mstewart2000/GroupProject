@@ -16,7 +16,8 @@ LaMDSubset <- SubsetMyData %>% filter(PlantSpecies == "La")
 # create stacked bar graphs to show the variation in soil host species composition as age increases per plant species
 ggplot(data = AaMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
   geom_bar() +
-  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) + 
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
   ggtitle("Aa Soil Host Species Composition") +
   xlab("Age (days)") + ylab("Number of Samples") +
   guides(fill=guide_legend(title="Soil Host Species")) +
@@ -25,6 +26,7 @@ ggplot(data = AaMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
 ggplot(data = BpMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
   geom_bar() +
   scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
   ggtitle("Bp Soil Host Species Composition") +
   xlab("Age (days)") + ylab("Number of Samples") +
   guides(fill=guide_legend(title="Soil Host Species")) +
@@ -33,6 +35,7 @@ ggplot(data = BpMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
 ggplot(data = CeMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
   geom_bar() +
   scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
   ggtitle("Ce Soil Host Species Composition") +
   xlab("Age (days)") + ylab("Number of Samples") +
   guides(fill=guide_legend(title="Soil Host Species")) +
@@ -41,6 +44,7 @@ ggplot(data = CeMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
 ggplot(data = LaMDSubset, aes(x = Age, fill = SoilHostSpecies)) +
   geom_bar() +
   scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
   ggtitle("La Soil Host Species Composition") +
   xlab("Age (days)") + ylab("Number of Samples") +
   guides(fill=guide_legend(title="Soil Host Species")) +
