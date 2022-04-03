@@ -12,11 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r message=FALSE}
 library(ggplot2)
 library(ape)
-library(ggtree)
 library(vegan)
 library(dplyr)
 library(reshape2)
-library(data.table)
 library(cowplot)
 ```
 
@@ -166,6 +164,7 @@ plot_grid(NMDSA, NMDSB, NMDSI,NMDSL, ncol = 2)
 Figure 2. The NMDS ordination plot shows the microbial community composition as factor of plant species and the age of plant individuals. Bacterial communities associated with the specific species are color-coded by individual plant age; the light to dark colour of point represent the age gradient from old to young, with species-specific minimum and maximum age.
 
 According to figure 2, in each plant, the bacterial composition changes with the age of the plant. Among Ammophila species, the largest changes in bacterial community composition were observed. Bacterial abundance also changes with increasing plant age in the other three speceies. However, it can be found that bacterial abundance does not increase further after a few years after plant establishment.
+
 
 
 
