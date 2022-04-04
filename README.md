@@ -61,7 +61,7 @@ Figure 4. Box plot showing that when a Ce seedling of a particular age (C. eduli
 
 ### Workflow
 Below is the workflow diagram of how data analysis was done for this group project. 
-![Workflow](./Workflow/Group Project Workflow.png)
+![Workflow](./Prediction_graph/Group Project Workflow.jpeg)
 
 ### Literature Cited
 
