@@ -37,7 +37,7 @@ We used this data set to investigate the associated effects of individual plants
 
 
 
-### Question 2. How the Bacterial community effect the plant species?
+### Question 2. How the Bacterial community affect the plant species?
 
 ####  a). Do bacteria communities have an effect on plant root mass (below-ground dry mass)?
 ####  b). Which bacteria has the greatest effect on plant biomass when the plant is 4-12 years old?
