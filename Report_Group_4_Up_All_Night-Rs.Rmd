@@ -18,9 +18,9 @@ We propose relevant questions about this topic:
 
 Question 1. How the Plant effect Bacterial community composition?
 
-a)Does the plant species will affect the bacterial community composition?
+a)Does the plant species affect the bacterial community composition?
 
-b)Does the plant growth age will affect the bacterial community?
+b)Does the plant age affect the bacterial community?
 
 c)How do the bacterial communities composition change across time as the various plant species age?
 
@@ -59,7 +59,7 @@ Does the plant will affect the bacterial community in the soil source?
 
 
 ## Question 1-a
-Does the plant species will affect the bacterial community composition?
+Does the plant species affect the bacterial community composition?
 
 In order to test the similarity between the bacterial community in different plant species area, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples within different plant species.  For this question, we mainly used the Bacteria Community Matrix to compared the composition of bacterial community among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is community matrix of bacterial OTU characterized from each soil sample.
 
@@ -100,7 +100,7 @@ According to the figure 1, the bacterial community composition differed between 
 
 
 ## Question 1-b
-Does the plant growth age will affect the bacterial community composition?
+Does the plant age affect the bacterial community composition?
 
 We next wanted to investigate in more detail whether there is a temporal pattern in bacterial communities based on our available data and whether the composition of their communities changes depending on the time of plant growth.
 
@@ -209,10 +209,10 @@ MDSubset <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age")) # crea
 #### Data Prepation
 The purpose of this section is to identify whether the bacterial soil host species composition is in any way correlated with or impacted by the age of the examined plant species. From answering this question and if some signification correlation is identified, we can further look into why bacterial soil host species compositions may differ across time. 
 
-First, we will first filter the data by plant species:
+First, we will filter the data by plant species:
 ```{r}
 AaSub <- MDSubset %>% filter(PlantSpecies == "Aa") # creates subset of MDSubset with only Aa plant data
-BpSub <- MDSubset %>% filter(PlantSpecies == "Bp")
+BpSub <- MDSubset %>% filter(PlantSpecies == "Bp") # does the same as above with Bp plant data
 CeSub <- MDSubset %>% filter(PlantSpecies == "Ce")
 LaSub <- MDSubset %>% filter(PlantSpecies == "La")
 ```
