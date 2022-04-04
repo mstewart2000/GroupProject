@@ -1,0 +1,93 @@
+---
+title: "R_code_Question_2 - Roshael"
+author: "Roshael Chellappah (20103016)"
+date: "03/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Environment Set-Up
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+
+MyData = read.csv("./Data/GreenhouseData.csv")
+```
+
+## Subset Data - remove unwanted columns
+```{r}
+MDSubset <- MyData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age", "Total_Dry_mg")) # creates new dataset from MyData with only these 4 columns
+```
+
+# Data Prep
+The purpose of this section is to identify whether the bacterial soil host species composition is in any way correlated with or impacted by the age of the examined plant species. From answering this question and if some signification correlation is identified, we can further look into why bacterial soil host species compositions may differ across time. 
+
+First, we will first filter the data by plant species:
+```{r}
+AaSub <- MDSubset %>% filter(PlantSpecies == "Aa") # creates subset of MDSubset with only Aa plant data
+BpSub <- MDSubset %>% filter(PlantSpecies == "Bp")
+CeSub <- MDSubset %>% filter(PlantSpecies == "Ce")
+LaSub <- MDSubset %>% filter(PlantSpecies == "La")
+```
+
+Since both age and bacterial soil host species are categorical variables, it is difficult to statistically identify whether the relationship between these to variables is significant or not. Therefore, we believe that the best way to identify any difference in bacterial soil host species composition across time would be to visualize the data. Therefore, we will create stacked bar graphs for each plant species, identifying the approximate bacterial compositions within plant species at every age that samples were collected. 
+```{r}
+
+# Graph for Aa
+AaPlot <- ggplot(data = AaSub, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) + 
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Ammophila arenaria") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+
+# Graph for Bp
+BpPlot <- ggplot(data = BpSub, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Baccharis pilularis") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+
+# Graph for Ce
+CePlot <- ggplot(data = CeSub, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Carpobrotus edulis") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+
+# Graph for La
+LaPlot <- ggplot(data = LaSub, aes(x = Age, fill = SoilHostSpecies)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0, 28, by = 2)) +  
+  scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+  ggtitle("Lupine arboreus") +
+  xlab("Age (years)") + ylab("Number of Samples") +
+  guides(fill=guide_legend(title="Soil Host Species")) +
+  theme_bw()
+
+# Arrange all these graphs together on one page
+Plot <- ggarrange(AaPlot, BpPlot + rremove("ylab"), CePlot, LaPlot + rremove("ylab"), # helps identify which plots to use within the multiplot figure, and rremove("ylab") removes the y-axis label for 2 of the 4 graphs
+          labels = c("A", "B", "C", "D"), # sets labels for every plot
+          ncol = 2, nrow = 2, # sets the dimensions for the multiplot
+          common.legend = TRUE, legend = "right") # sets a common plot and places it on the left of the page
+
+annotate_figure(Plot,
+                top = text_grob("Bacterial Soil Host Species Compositions Per Plant Species", color = "black", face = "bold", size = 14)) # creates a common title for the multiplot
+```
+Figure 1. Stacked bar graphs of bacterial soil host species for every plant species sampled. Y-axis identifies the numbers of samples collected at each age group and bacterial composition can be identified by the various colours within every bar. Greater amount of one particular colour within one bar indicates a greater abundance of that bacteria at that specific age. 
+
+One conclusion that can be made from these stacked bar graphs is that the bacterial species Lupine disappears from the soil environments of all 4 plant species after 13 years of age. Although there were less total *Baccharis pilularis* samples taken in the Greenhouse experiment, all plant species began with a similar composition of all studied bacterial soil host species. Furthermore, it also seems that *Ammophila arenaria* is always in greatest abundance when the plants are 26 years old. All plant species also seem to follow similar trends in how the bacterial community composition fluctuates over time. Further research could identify why Lupine suddenly disappears from the soil microbiome after 13 years of age, and if there is some other factor that results in this disappearance. It would also be useful to identify whether the relationship between age and bacterial soil host species is significant; however, since both of these variables are categorical and since the data is not normally distributed, it is difficult to identify a particular statistical test that could help us identify this significance. 
+
+
