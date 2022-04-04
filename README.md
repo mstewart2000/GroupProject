@@ -15,7 +15,7 @@ Soil microbial communities can play a key role in building plant communities. Al
 
 In our data, the experimenters mainly collected changes in the soil microbial community associated with individuals of four plant species more than 20 years. Researchers collected soil from four different plant species (dubbed soil host species) and transplanted seedlings of each of the four species into the different soil samples. And the effect of soil microbial on the performance of conspecific and heterospecific seedlings was quantified in a greenhouse experiment that preserved the soil characteristics of these individual plant.
 
-We used this data set to investigate the associated effects of individual plants and soil microbes and whether they change in intensity over time. We proposed relevant questions around this topic.
+We used this data set to investigate the associated effects of individual plants and soil microbes and whether they change in intensity over time. We proposed relevant questions about this topic.
 
 
 # Research Questions and Prediction
