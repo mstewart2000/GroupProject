@@ -78,13 +78,13 @@ LaPlot <- ggplot(data = LaSub, aes(x = Age, fill = SoilHostSpecies)) +
   theme_bw()
 
 # Arrange all these graphs together on one page
-Plot <- ggarrange(AaPlot, BpPlot + rremove("ylab"), CePlot, LaPlot + rremove("ylab"), 
-          labels = c("A", "B", "C", "D"),
-          ncol = 2, nrow = 2,
-          common.legend = TRUE, legend = "right")
+Plot <- ggarrange(AaPlot, BpPlot + rremove("ylab"), CePlot, LaPlot + rremove("ylab"), # helps identify which plots to use within the multiplot figure, and rremove("ylab") removes the y-axis label for 2 of the 4 graphs
+          labels = c("A", "B", "C", "D"), # sets labels for every plot
+          ncol = 2, nrow = 2, # sets the dimensions for the multiplot
+          common.legend = TRUE, legend = "right") # sets a common plot and places it on the left of the page
 
 annotate_figure(Plot,
-                top = text_grob("Bacterial Soil Host Species Compositions Per Plant Species", color = "black", face = "bold", size = 14))
+                top = text_grob("Bacterial Soil Host Species Compositions Per Plant Species", color = "black", face = "bold", size = 14)) # creates a common title for the multiplot
 ```
 Figure 1. Stacked bar graphs of bacterial soil host species for every plant species sampled. Y-axis identifies the numbers of samples collected at each age group and bacterial composition can be identified by the various colours within every bar. Greater amount of one particular colour within one bar indicates a greater abundance of that bacteria within the sample of that specific age. 
 
