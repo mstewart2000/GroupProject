@@ -432,6 +432,6 @@ Besides, based on the results of this two-sample t-test, we can see that while t
 
 ## Conclusion
 
-
+Our data suggest that plant-soil microbial interactions do exist, but we were not able to demonstrate whether their strength is affected by the age of the individual plant. In our data, the different ages of plant individuals can differ but not significantly on bacterial community composition. The same result was found in the analysis of soil microorganisms affecting plant root weight. At present, it seems that the age of the individual plant does not affect the interaction between the plant and the soil microorganisms. That is different from the results in our data source article. It is suggested in the article that the strength of this interaction correlates with the length of time that individual plants condition the soil. That may be because other influencing factors, such as soil conditions, were not included in our analysis, thus affecting the different results. However, the difference of microbial samples due to plant age was also found in our data, suggesting that individual plant age may be a potential factor that could influence the interaction between plant and soil microbes. Subsequent studies could focus more on whether the length of soil conditioning of plants affects the strength of this interaction and should allow for more appropriate placement of experimental results in natural settings to predict better how soil microbes affect plant community assembly.
 
 
