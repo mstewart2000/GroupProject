@@ -11,21 +11,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Soil microbial communities can play a key role in building plant communities. Also individual plants frequently cause changes in soil microbial community composition, and this reciprocal change then continues to affect the growth of neighboring plants or individual plants that subsequently colonize the soil. As this effect increases it can cause interspecific differences and thus affect plant community composition. In addition, the intensity of this interaction varies over time, so we focus on how the intensity of the interaction between plant and microbial populations varies over time. 
+Soil microbial communities can play a crucial role in building plant communities. Also, individual plants frequently cause changes in soil microbial community composition. This reciprocal change then affects the growth of neighbouring or individual plants that subsequently colonize the soil. As this effect increases, it can cause interspecific differences and thus affect plant community composition. In addition, the intensity of this interaction varies over time, so we focus on how the intensity of the interaction between plant and microbial populations varies over time. 
 
-In our data, the experimenters mainly collected changes in the soil microbial community associated with individuals of four plant species more than 20 years. And the effect of soil biota on the performance of conspecific and heterospecific seedlings was quantified in a greenhouse experiment that preserved the soil characteristics of these monocultures. We used this dataset to investigate the associated effects of individual plants and soil microbes and whether they change in intensity over time. 
+In our data, the experimenters mainly collected changes in the soil microbial community associated with individuals of four plant species for more than 20 years. And the effect of soil biota on the performance of conspecific and heterospecific seedlings was quantified in a greenhouse experiment that preserved the soil characteristics of these monocultures. We used this dataset to investigate the associated effects of individual plants and soil microbes and whether they change in intensity over time. 
 We propose relevant questions about this topic:
 
-Question 1. How the Plant effect Bacterial community composition?
+Question 1. What effect do plant species have on the bacterial community composition?
 
 a) Does the plant species affect the bacterial community composition?
 
 b) Does the plant age affect the bacterial community?
 
-c) How do the bacterial communities composition change across time as the various plant species age?
+c) How do the bacterial communities' composition change across time as the various plant species age?
 
 
-Question 2. How the Bacterial community affect the plant species?
+Question 2. How does the Bacterial community affect the plant species?
 
 a) Do bacteria communities have an effect on plant root mass (below-ground dry mass)?
 
@@ -58,13 +58,13 @@ GData<-read.csv("./Data/GreenhouseData.csv")
 What effect to plant species have on the bacterial community composition?
 
 
-## Question 1-a
+## Question 1a)
 Does the plant species affect the bacterial community composition?
 
-In order to test the similarity between the bacterial community in different plant species area, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples within different plant species.  For this question, we mainly used the Bacteria Community Matrix to compared the composition of bacterial community among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is community matrix of bacterial OTU characterized from each soil sample.
+In order to test the similarity between the bacterial community in different plant species areas, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples within different plant species.  For this question, we mainly used the Bacteria Community Matrix to compare the composition of bacterial communities among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is a community matrix of bacterial OTU characterized from each soil sample.
 
 ### Transforme the Data
-According the data we have, I transform column and row first, and remove error which sum of row and column is zero. 
+According the data we have, we transformed the column and row first, and removed errors which resulted in the sum of the row and column to be zero. 
 ```{r}
 rownames(MBData) <-MBData[,1] 
 MBData<- MBData[,-1 ]
@@ -81,7 +81,7 @@ PDat<-melt(DistMat)
 ```
 
 ### Non-Metric Multidimensional Scaling
-Using Non-matric Dimensional Scaling(NMDS) to visualize the cluster of samplings from different plant species. We can find out whether in different plant species area has a stronger effect on bacterial communities.
+Using Non-metric Dimensional Scaling(NMDS), we can visualize the cluster of samplings from different plant species. We can find out whether different plant species area have a stronger effect on bacterial communities.
 
 ```{r warning=FALSE}
 set.seed(12138)
@@ -93,19 +93,19 @@ PDat<-merge(PDat,SBData,by="X",all.x=T,all.y=F)
 qplot(x=NMDS1,y=NMDS2,colour=Species,alpha=I(0.6),data=PDat)+theme_bw()
 ```
 
-Figure 1. NMDS plot show the overall variation in bacterial community composition among the different specific plant species. Points are color-coded based on the identity of the plant species: Ammophila (red); Baccharis(gree); Iceplant (orange); Lupine (blue); sand (pink).
+Figure 1. NMDS plot show the overall variation in bacterial community composition among the different specific plant species. Points are color-coded based on the identity of the plant species: Ammophila (red); Baccharis(green); IcePlant (orange); Lupine (blue); and Sand (pink).
 
 ### Discussion
-According to the figure 1, the bacterial community composition differed between plant species, but the results were not significant. Based on the graph, the control group(sand) has less similarity with other four plant species.  Sampling from same plant specie's area are more likely cluster together, but there still have some overlap between different plant species. From figure 1, the bacterial community composition differed between plant species.
+According to Figure 1, the bacterial community composition differed between plant species, but the results were not significant. Based on the graph, the control group(sand) has less similarity with the other four plant species.  Samplings from same plant species area are more likely to cluster together, but there is still some overlap between differing plant species. From Figure 1, we can conclude that the bacterial community composition differs between plant species.
 
 
-## Question 1-b
+## Question 1b)
 Does the plant age affect the bacterial community composition?
 
 We next wanted to investigate in more detail whether there is a temporal pattern in bacterial communities based on our available data and whether the composition of their communities changes depending on the time of plant growth.
 
 ### Transform Matrix
-In order to test whether plant age will effect the bacterial community, we separate the bacterial community matrix into four different matrix depended on plant species. 
+In order to test whether plant age will effect the bacterial community, we separated the bacterial community matrix into four different matrices, filtering by plant species. 
 ```{r}
 MatrixA <- Matrix[grep("Ammophila", row.names(Matrix)), ]
 MatrixB <- Matrix[grep("Baccharis", row.names(Matrix)), ]
@@ -134,7 +134,7 @@ PDatL<-melt(DistMatL)
 ```
 
 ### Non-Metric Multidimensional Scaling
-Using Non-matric Dimensional Scaling(NMDS) to visualize the cluster of samplings with plant age in four different plant species. We can find out whether the plant growth age has a stronger effect on bacterial communities.
+Using Non-metric Dimensional Scaling(NMDS), we can visualize the cluster of samplings with plant age in four different plant species. We can find out whether the plant growth age has a stronger effect on bacterial communities.
 
 ```{r warning=FALSE}
 #Non-Metric Multidimensional Scaling for Ammophila species.
@@ -192,18 +192,18 @@ NMDSL<-qplot(x=NMDS1,y=NMDS2,colour=Age,alpha=I(0.6),data=PDatL)+
 plot_grid(NMDSA, NMDSB, NMDSI,NMDSL, ncol = 2)
 ```
 
-Figure 2. The NMDS ordination plot shows the microbial community composition as factor of plant species and the age of plant individuals. Bacterial communities associated with the specific species are color-coded by individual plant age; the light to dark colour of point represent the age gradient from old to young, with species-specific minimum and maximum age.
+Figure 2. The NMDS ordination plot shows the microbial community composition as a factor of plant species and the age of plant individuals. Bacterial communities associated with the specific species are color-coded by individual plant age; the light to dark colour of data points represent the age gradient from old to young, with species-specific minimum and maximum age.
 
 ### Discussion
-According to figure 2, in each plant, the bacterial composition changes with the age of the plant. Among Ammophila species, the largest changes in bacterial community composition were observed. Bacterial abundance also changes with increasing plant age in the other three species but not significant. Overall, we can find the plant age is one of important factor which will cause the bacterial community change, but we still need furter research.  
+According to Figure 2, in each plant, the bacterial composition changes with the age of the plant. Among Ammophila species, the largest changes in bacterial community composition were observed. Bacterial abundance also changes with increasing plant age in the other three species but this change is not significant. Overall, we can find that the plant age is an important factor which has some effect on changes within the bacterial community, but we still need further research.  
 
-## Question 1-c
-How do the bacterial communities composition change across time as the various plant species age?
+## Question 1c)
+How do the bacterial communities' composition change across time as the various plant species age?
 
 ### Transform Data 
 #### Subset Data - remove unwanted columns
 ```{r}
-MDSubset <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age")) # creates new dataset from MyData with only these 4 columns
+MDSubset <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age")) # creates new dataset from the GreenhouseData.csv with only these 4 columns
 ```
 
 #### Data Prepation
@@ -217,7 +217,7 @@ CeSub <- MDSubset %>% filter(PlantSpecies == "Ce")
 LaSub <- MDSubset %>% filter(PlantSpecies == "La")
 ```
 
-Since both age and bacterial soil host species are categorical variables, it is difficult to statistically identify whether the relationship between these to variables is significant or not. Therefore, we believe that the best way to identify any difference in bacterial soil host species composition across time would be to visualize the data. Therefore, we will create stacked bar graphs for each plant species, identifying the approximate bacterial compositions within plant species at every age that samples were collected. 
+Since both age and bacterial soil host species are categorical variables, it is difficult to statistically identify whether the relationship between these two variables is significant or not. Therefore, we believe that the best way to identify any difference in bacterial soil host species composition across time would be to visualize the data. Therefore, we will create a stacked bar graphs for each plant species, identifying the approximate bacterial compositions within plant species at every age that samples were collected. 
 
 ```{r}
 # Graph for Aa
@@ -270,15 +270,14 @@ annotate_figure(Plot,
                 top = text_grob("Bacterial Soil Host Species Compositions Per Plant Species", color = "black", face = "bold", size = 14)) # creates a common title for the multiplot
 ```
 
-Figure 3. Stacked bar graphs of bacterial soil host species for every plant species sampled. Y-axis identifies the numbers of samples collected at each age group and bacterial composition can be identified by the various colours within every bar. Greater amount of one particular colour within one bar indicates a greater abundance of that bacteria at that specific age. 
+Figure 3. Multi-plot figure of stacked bar graphs of bacterial soil host species for every plant species sampled. Y-axis identifies the numbers of samples collected at each age group and bacterial composition can be identified by the various colours within every bar (each colour represents a different bacterial species, as outlined in the legend). Greater amount of one particular colour within any given bar indicates a greater abundance of that bacteria at that specific age. 
 
 ### Discussion
-One conclusion that can be made from these stacked bar graphs is that the bacterial species Lupine disappears from the soil environments of all 4 plant species after 13 years of age. Although there were less total *Baccharis pilularis* samples taken in the Greenhouse experiment, all plant species began with a similar composition of all studied bacterial soil host species. Furthermore, it also seems that *Ammophila arenaria* is always in greatest abundance when the plants are 26 years old. All plant species also seem to follow similar trends in how the bacterial community composition fluctuates over time. Further research could identify why Lupine suddenly disappears from the soil microbiome after 13 years of age, and if there is some other factor that results in this disappearance. It would also be useful to identify whether the relationship between age and bacterial soil host species is significant; however, since both of these variables are categorical and since the data is not normally distributed, it is difficult to identify a particular statistical test that could help us identify this significance. 
+Unlike what we had predicted, it seems that the studied plants and their related bacterial species have no great correlation when examining bacterial compositions. There are however some trends present within these graphs. One conclusion that can be made from these stacked bar graphs is that the bacterial species Lupine disappears from the soil environments of all 4 plant species after 13 years of age. Although there were less total *Baccharis pilularis* samples taken in the Greenhouse experiment, all plant species began with a similar composition of all studied bacterial soil host species. Furthermore, it also seems that *Ammophila arenaria* is always in greatest abundance when the plants are 26 years old. All plant species also seem to follow similar trends in how the bacterial community composition fluctuates over time. Further research could identify why Lupine suddenly disappears from the soil microbiome after 13 years of age, and if there is some other factor that results in this disappearance. It would also be useful to identify whether the relationship between age and bacterial soil host species is significant; however, since both of these variables are categorical and since the data is not normally distributed, it is difficult to identify a particular statistical test that could help us identify this significance. 
 
 
-
-## Question 2-a 
-Do bacteria species have an effect on plant root mass (below-ground dry mass)?  
+## Question 2a)
+Do bacterial species have an effect on plant root mass (below-ground dry mass)?  
 
 In order to account for different root masses among species of plants, the relationship between soil host species and root mass will be looked at per plant species. In order to account for difference in root masses among age, an older age group and younger sampled age group will be chosen among all plant species (10 years and 0.5 years, respectively) for visual analysis.
 In order to account for differences in root mass by age and for statistical confirmation, the ANCOVA test will be used.
@@ -354,7 +353,7 @@ According to the ANCOVA analysis, the p-value for soil host species is more than
 Therefore, it is assumed that the bacteria community formed by the soil host species is not significant to plant root growth.
 
 
-## Question 2-b
+## Question 2b)
 Which bacteria has the greatest effect on plant biomass when the plant is 4-12 years old?
 
 The goal of this section is to determine which bacteria has the greatest effect on plant biomass when the plant is between 4 and 12 years old. This was chosen as this is the average age of the plants in the data set.
@@ -375,11 +374,11 @@ subdata = GNdata %>%
 head(subdata)
 ```
 
-Now with this data I can begin my analysis
+Now with this data, we can begin our analysis
 
 ### Analysis
 
-I will use a box plot to see the impact that the bacteria have on the plants that are this age
+We will use a box plot to see the impact that the bacteria have on the plants that are this age
 ```{r}
 Plot1 = ggplot(subdata, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
   geom_boxplot() +
@@ -402,7 +401,7 @@ new_subdata = subdata
   }
 ```
 
-Now I will recreate the plot with the new data set
+Now we will recreate the plot with the new data set
 ```{r}
 Plot2 = ggplot(new_subdata, aes(x = SoilHostSpecies, y = BG_Dry_mg, fill = SoilHostSpecies)) +
   geom_boxplot() +
@@ -415,7 +414,7 @@ Plot2
 Figure 7: Shows the difference in Root Dry Mass between Lupine and all the other different species of soil bacteria.
 
 
-Now I will conduct an unpaired two-sample t-test to determine if this difference between the two groups is significant or not. I am using a two-sample t-test as the two groups are unrelated.
+Now we will conduct an unpaired two-sample t-test to determine if this difference between the two groups is significant or not. We will using a two-sample t-test as the two groups are unrelated.
 
 ```{r}
 t.test(subset(new_subdata$BG_Dry_mg, new_subdata$SoilHostSpecies == "Other"),
@@ -426,13 +425,10 @@ t.test(subset(new_subdata$BG_Dry_mg, new_subdata$SoilHostSpecies == "Other"),
 Table 1: Shows the results of a Welch Two Sample t-test of below ground dry mass of plants with Lupine against plants with any of the other different species. With a p-value of 0.6816, the results are not statistically significant
 
 ### Discussion
-According to figure 6, we can see that Lupine has an impact on the dry weight of the roots between 4 and 12 years. To further examine this relationship, I will create a new set of data that groups together all the other species of soil bacteria, then create a boxplot using that set.
-Based on graph 7 we can see visually that there is a difference between samples with Lupine and all the other species of soil bacteria at this point in time. 
-Besides, based on the results of this two-sample t-test, we can see that while there is a difference between the two groups, this difference is not enough for it to be considered significant as the p-value is not less that 0.05.
+According to Figure 6, we can see that Lupine has an impact on the dry weight of the roots between 4 and 12 years. To further examine this relationship, we will create a new set of data that groups together all the other species of soil bacteria, then create a boxplot using that set.
+Based on Figure 7, we can see that there is a difference between samples with Lupine and all the other species of soil bacteria at this point in time. Besides, based on the results of this two-sample t-test, we can see that while there is a difference between the two groups, this difference is not enough for it to be considered significant as the p-value is not less that 0.05.
 
 
 ## Conclusion
-
-Our data suggest that plant-soil microbial interactions do exist, but we were not able to demonstrate whether their strength is affected by the age of the individual plant. In our data, the different ages of plant individuals can differ but not significantly on bacterial community composition. The same result was found in the analysis of soil microorganisms affecting plant root weight. At present, it seems that the age of the individual plant does not affect the interaction between the plant and the soil microorganisms. That is different from the results in our data source article. It is suggested in the article that the strength of this interaction correlates with the length of time that individual plants condition the soil. That may be because other influencing factors, such as soil conditions, were not included in our analysis, thus affecting the different results. However, the difference of microbial samples due to plant age was also found in our data, suggesting that individual plant age may be a potential factor that could influence the interaction between plant and soil microbes. Subsequent studies could focus more on whether the length of soil conditioning of plants affects the strength of this interaction and should allow for more appropriate placement of experimental results in natural settings to predict better how soil microbes affect plant community assembly.
-
+Our data suggest that plant-soil microbial interactions do exist, but we were not able to demonstrate whether the strength of this interaction is affected by the age of the individual plant. In our data, the different ages of plant individuals can result in fluctuating bacterial community compositions, though this interaction is not significant. We came to a similar conclusion in analyzing soil microorganisms affecting plant root weight. At present, it seems that the age of the individual plant does not affect the interaction between the plant and the soil microorganisms greatly. That is different from the results in the research article from which we obtained our data. It is suggested in the article that the strength of this interaction correlates with the length of time that individual plants condition the soil. That may be because other influencing factors, such as soil conditions, were not included in our analysis, resulting in differing conclusions. However, since changes to the bacterial soil host community composition were identified as plants aged, it could be helpful to focus subsequent studies on finding some way to quantify whether this interaction is significant. Furthermore, looking into the soil conditioning effects of plants and its resulting impact on bacterial community compositions could help researchers further understand the plant-soil microbe interaction and relationship.
 
