@@ -1,7 +1,7 @@
 ---
-title: "Report_Group_4_Up_All_Night-Rs"
+title: "Group Project Report - Up_All_Night-Rs"
 author: "Tianyi Zuo, Roshael Chellappah, Tram Duong, Malcolm Stewart"
-date: "2022/4/3"
+date: "April 4th, 2022"
 output: html_document
 ---
 
