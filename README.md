@@ -51,7 +51,11 @@ Figure 5. Box plot showing that when a Ce seedling of a particular age (C. eduli
 
   b) Which bacteria has the greatest effect on plant root biomass when the plant is ____ years old?
 
+### Question 3. Which bacteria has the greatest effect on plant biomass when the plant is 4-12 years old?
 
+  Prediction: One of the four bacterial species will cause a significant difference in the below ground mass of the plants in this time frame.
+  ![Boxplots showing the expected relationship between the below ground mass and bacterial species, then that one bacterial species compared against all the others](./Thingy.png)
+  Figure 6/7. Shows the predicted relationship between the different species of soil bacteria and below ground dry mass as visualized by a boxplot. This shows the expected result that one of the species will apear to cause an increase in below ground dry mass. The next boxplot shows that this difference in fact exists by making the same boxplot but combining the other three bacterial species into a singular group.
 
 ### Workflow
 
