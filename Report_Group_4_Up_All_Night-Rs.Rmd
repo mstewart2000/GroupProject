@@ -33,7 +33,7 @@ b). Which bacteria has the greatest effect on plant biomass when the plant is 4-
 
 
 ## Package loading
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, include = FALSE}
 library(ggplot2)
 library(ape)
 library(vegan)
@@ -203,7 +203,7 @@ How do the bacterial communities composition change across time as the various p
 ### Transform Data 
 #### Subset Data - remove unwanted columns
 ```{r}
-MDSubset <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age", "Total_Dry_mg")) # creates new dataset from MyData with only these 4 columns
+MDSubset <- GData %>% select(c("PlantSpecies", "SoilHostSpecies", "Age")) # creates new dataset from MyData with only these 4 columns
 ```
 
 #### Data Prepation
@@ -301,6 +301,7 @@ class(root$Age)
  oldplants <- root[grep('10', root$Age),]
  youngplants <- root[grep('0.5', root$Age),]
 ```
+
 ```{r}
 oldplot <- ggplot(oldplants, aes(x=PlantSpecies, y=BG_Dry_mg, fill=SoilHostSpecies)) + 
     geom_boxplot() +
