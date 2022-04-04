@@ -33,7 +33,7 @@ b) Which bacteria has the greatest effect on plant biomass when the plant is 4-1
 
 
 ## Package loading
-```{r message=FALSE, warning=FALSE, include = FALSE}
+```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(ape)
 library(vegan)
