@@ -44,7 +44,7 @@ Figure 2. A predicted stacked bar graph showing the composition of the soil host
 ####  a). Do bacteria communities have an effect on plant root mass (below-ground dry mass)?
 ####  b). Which bacteria has the greatest effect on plant biomass when the plant is 4-12 years old?
   
-###  Prediction a): 
+###  Prediction 2a): 
   Plant species will have increased below-ground dry mass when the soil host species and the plant species (transplanted seedling) are the same.
 
 ![image0-23](https://user-images.githubusercontent.com/97919590/161337254-8b6c129f-b9eb-49d1-ab7b-1e732e69cf12.jpeg)
@@ -54,13 +54,13 @@ Figure 3. Box plot showing that when an Aa seedling of a particular age (Ammophi
 Figure 4. Box plot showing that when a Ce seedling of a particular age (C. edulis/IcePlant) is planted in soil that was hosted by IcePlant, the below-ground dry mass will be significantly higher than if a Ce seedling of that particular age is planted in soil that was from any other soil host species. The x-axis is the soil host species, while the y-axis shows the below-ground dry mass in milligrams.
 
 
-### Prediction b): 
+### Prediction 2b): 
   One of the four bacterial species will cause a significant difference in the below ground mass of the plants in this time frame.
   ![Boxplots showing the expected relationship between the below ground mass and bacterial species, then that one bacterial species compared against all the others](./Prediction_graph/Thingy.png)
   Figure 5/6. Shows the predicted relationship between the different species of soil bacteria and below ground dry mass as visualized by a boxplot. This shows the expected result that one of the species will apear to cause an increase in below ground dry mass. The next boxplot shows that this difference in fact exists by making the same boxplot but combining the other three bacterial species into a singular group.
 
 ### Workflow
-![Workflow for BIOL 432 Group Project by Up_All_Night-Rs](./Workflow/Group Project Workflow.png)
+![Workflow](./Workflow/Group Project Workflow.png)
 
 ### Literature Cited
 
