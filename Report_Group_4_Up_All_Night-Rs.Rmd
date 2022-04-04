@@ -63,7 +63,7 @@ Does the plant species affect the bacterial community composition?
 
 In order to test the similarity between the bacterial community in different plant species areas, we will use a Non-Metric Multidimensional Scaling (NMDS) to visualize differences among our samples within different plant species.  For this question, we mainly used the Bacteria Community Matrix to compare the composition of bacterial communities among different plant species. The matrix data collected soil microbial communities associated with individuals of the four dominant plants species, which is a community matrix of bacterial OTU characterized from each soil sample.
 
-### Transforme the Data
+### Transform the Data
 According the data we have, we transformed the column and row first, and removed errors which resulted in the sum of the row and column to be zero. 
 ```{r}
 rownames(MBData) <-MBData[,1] 
