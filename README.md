@@ -61,6 +61,9 @@ Figure 4. Box plot showing that when a Ce seedling of a particular age (C. eduli
 
 ### Workflow
 
+![Workflow](./Workflow/Group Project Workflow.jpeg)
+Above is the workflow/work pipeline for the data analyses done for this project.
+
 ### Literature Cited
 
 Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe interactions: the neglected effect of soil conditioning time. New Phytologist, 231(4), 1546–1558. https://doi.org/10.1111/nph.17420
