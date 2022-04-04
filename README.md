@@ -60,11 +60,12 @@ Figure 4. Box plot showing that when a Ce seedling of a particular age (C. eduli
   Figure 5/6. Shows the predicted relationship between the different species of soil bacteria and below ground dry mass as visualized by a boxplot. This shows the expected result that one of the species will apear to cause an increase in below ground dry mass. The next boxplot shows that this difference in fact exists by making the same boxplot but combining the other three bacterial species into a singular group.
 
 ### Workflow
-![Workflow for BIOL 432 Group Project by Up_All_Night-Rs](./Group Project Workflow.png)
-
+![Workflow for BIOL 432 Group Project by Up_All_Night-Rs](./Workflow/Group Project Workflow.png)
 
 ### Literature Cited
 
 Article: Ke, P., Zee, P. C., & Fukami, T. (2021). Dynamic plant–soil microbe interactions: the neglected effect of soil conditioning time. New Phytologist, 231(4), 1546–1558. https://doi.org/10.1111/nph.17420
 
 Data Reference：Ke, P.-J., Zee, P., & Fukami, T. (2021). Dynamic plant-soil microbe interactions: the neglected effect of soil conditioning time. Zenodo. https://doi.org/10.5061/dryad.tmpg4f4zd
+
+
