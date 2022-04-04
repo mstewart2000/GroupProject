@@ -60,8 +60,8 @@ Figure 4. Box plot showing that when a Ce seedling of a particular age (C. eduli
   Figure 5/6. Shows the predicted relationship between the different species of soil bacteria and below ground dry mass as visualized by a boxplot. This shows the expected result that one of the species will apear to cause an increase in below ground dry mass. The next boxplot shows that this difference in fact exists by making the same boxplot but combining the other three bacterial species into a singular group.
 
 ### Workflow
-Below is the workflow diagram of how data analysis was done for this group project. 
 ![Workflow](./Prediction_graph/Group Project Workflow.jpeg)
+Above is the workflow diagram of how data analysis was done for this group project. 
 
 ### Literature Cited
 
